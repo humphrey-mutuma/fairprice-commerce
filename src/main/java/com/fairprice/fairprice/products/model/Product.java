@@ -3,6 +3,7 @@ package com.fairprice.fairprice.products.model;
 import com.fairprice.fairprice.enums.UserRoles;
 import com.fairprice.fairprice.user.model.Address;
 import com.fairprice.fairprice.user.model.CardDetails;
+import com.fairprice.fairprice.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,15 +28,28 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true, nullable = false, length = 50)
-    private String username;
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false)
-    private String  password;
+    private double  price;
 
+    @Column()
+    private String  image;
 
+    private String  weight;
 
-//    dates
+    private boolean  isHalal = true;
+
+    private double  rating;
+
+    private double  reviews;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    //    dates
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
