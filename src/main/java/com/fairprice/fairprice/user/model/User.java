@@ -30,9 +30,6 @@ public class User {
     @Column(nullable = false)
     private String  password;
 
-    @Column()
-    private CardDetails cardDetails;
-
     @Column(nullable = false)
     private Enum<UserRoles> roles = UserRoles.USER;  // Default role set to USER
 
@@ -42,6 +39,9 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Card> cards = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();

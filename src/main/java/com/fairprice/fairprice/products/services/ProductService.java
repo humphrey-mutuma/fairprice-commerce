@@ -2,8 +2,6 @@ package com.fairprice.fairprice.products.services;
 
 import com.fairprice.fairprice.products.dto.ProductDto;
 import com.fairprice.fairprice.products.dto.UpdateProductDto;
-import com.fairprice.fairprice.user.dto.UpdateUserDto;
-import com.fairprice.fairprice.user.dto.UserProfileResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

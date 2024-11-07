@@ -56,7 +56,7 @@ public class AuthService {
            User userFromDb = authRepository.findByUsername(user.getUsername());
 
            // Return successful response with token and user details
-           return new LoginResponseDto(token, user.getUsername(), userFromDb.getRoles());
+           return new LoginResponseDto(token, userFromDb.getId(), user.getUsername(), userFromDb.getRoles());
 
        } catch (BadCredentialsException e) {
            // Return a response indicating invalid credentials
