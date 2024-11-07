@@ -17,7 +17,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String updateUserProfile(UUID userId, UpdateUserDto updateUserProfileDto) {
+    public String updateUserProfile(UUID userId, UpdateUserDto updateProductDto) {
 
         return null;
     }
