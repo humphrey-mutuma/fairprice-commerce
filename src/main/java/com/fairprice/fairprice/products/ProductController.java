@@ -1,7 +1,6 @@
 package com.fairprice.fairprice.products;
 
 import com.fairprice.fairprice.products.dto.ProductDto;
-import com.fairprice.fairprice.products.dto.UpdateProductDto;
 import com.fairprice.fairprice.products.services.ProductService;
 import com.fairprice.fairprice.reponse.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +17,7 @@ import java.util.UUID;
 public class ProductController {
     private final ProductService productService;
 
-
-    //     fetch product ***********************
-    @GetMapping("/{productId}")
-    public ResponseEntity<ApiResponse<ProductDto>> findProductById(@PathVariable UUID productId ) {
-        return ResponseEntity
-                .ok(new ApiResponse<>("success" ,productService.findProductById(productId)));
-    }
-
-    //     fetch all product ***********************
+    //     fetch all products ***********************
     @GetMapping("/")
     public ResponseEntity<ApiResponse<List<ProductDto>>> findProducts(
             @RequestParam int page,
@@ -36,8 +27,19 @@ public class ProductController {
                 .ok(new ApiResponse<>("success" ,productService.findProducts(page, pageSize)));
     }
 
+    //     fetch product ***********************
+    @GetMapping("/{productId}")
+    public ResponseEntity<ApiResponse<ProductDto>> findProductById(
+            @PathVariable UUID productId
+    ) {
+        return ResponseEntity
+                .ok(new ApiResponse<>("success" , productService.findProductById(productId)));
+    }
+
+
+
     //     fetch all product ***********************
-    @GetMapping("search/")
+    @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<ProductDto>>> searchProducts(
             @RequestParam int query,
             @RequestParam int page,
@@ -51,10 +53,10 @@ public class ProductController {
     @PatchMapping("/{productId}")
     public ResponseEntity<ApiResponse<String>> updateProduct(
             @PathVariable("productId") UUID productId,
-            @RequestBody() UpdateProductDto updateProductDto
+            @RequestBody() ProductDto productDto
     ) {
         return ResponseEntity
-                .ok(new ApiResponse<>(productService.updateProduct(productId, updateProductDto), null));
+                .ok(new ApiResponse<>(productService.updateProduct(productId, productDto), null));
     }
 
     // delete product *******************

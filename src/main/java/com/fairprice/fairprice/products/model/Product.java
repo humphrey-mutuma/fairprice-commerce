@@ -29,7 +29,6 @@ public class Product {
     @Column(nullable = false)
     private double  price;
 
-    @Column()
     private String  image;
 
     private String  weight;

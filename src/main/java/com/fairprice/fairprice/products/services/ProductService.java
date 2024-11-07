@@ -1,7 +1,8 @@
 package com.fairprice.fairprice.products.services;
 
+import com.fairprice.fairprice.exceptions.ResourceNotFoundException;
 import com.fairprice.fairprice.products.dto.ProductDto;
-import com.fairprice.fairprice.products.dto.UpdateProductDto;
+import com.fairprice.fairprice.products.repo.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ProductService implements IProductService {
+    private final ProductRepository productRepository;
 
 
     @Override
     public ProductDto findProductById(UUID productId) {
+        productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found!"));
+
         return null;
     }
 
@@ -29,12 +33,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public String updateProduct(UUID productId, UpdateProductDto updateProductDto) {
+    public String updateProduct(UUID productId, ProductDto productDto) {
         return "";
     }
 
     @Override
     public String deleteProduct(UUID productId) {
-        return "";
+        productRepository.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found!"));
+        productRepository.deleteById(productId);
+        return "Product deleted successfully";
     }
 }
