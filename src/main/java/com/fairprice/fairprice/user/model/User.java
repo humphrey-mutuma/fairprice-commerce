@@ -29,11 +29,11 @@ public class User {
     @Column(nullable = false)
     private String  password;
 
+    @Column()
+    private CardDetails cardDetails;
+
     @Column(nullable = false)
     private Enum<UserRoles> roles = UserRoles.USER;  // Default role set to USER
-
-    @Column(length = 15)
-    private String phoneNumber;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -41,6 +41,9 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<Account> accounts = new ArrayList<>();
