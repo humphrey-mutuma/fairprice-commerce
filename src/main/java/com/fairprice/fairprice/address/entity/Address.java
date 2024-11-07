@@ -1,4 +1,5 @@
-package com.fairprice.fairprice.user.model;
+package com.fairprice.fairprice.address.entity;
+import com.fairprice.fairprice.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

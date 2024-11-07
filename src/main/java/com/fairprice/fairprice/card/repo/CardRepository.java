@@ -1,4 +1,4 @@
-package com.fairprice.fairprice.card;
+package com.fairprice.fairprice.card.repo;
 
 import com.fairprice.fairprice.card.entity.Card;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,8 @@
 package com.fairprice.fairprice.user;
 
 import com.fairprice.fairprice.reponse.ApiResponse;
-import com.fairprice.fairprice.user.dto.UpdateAddressDto;
-import com.fairprice.fairprice.user.dto.UpdateCardDetailsDto;
+import com.fairprice.fairprice.address.dto.UpdateAddressDto;
+import com.fairprice.fairprice.card.dto.UpdateCardDetailsDto;
 import com.fairprice.fairprice.user.dto.UserProfileResDto;
 import com.fairprice.fairprice.user.services.UserService;
 import lombok.RequiredArgsConstructor;

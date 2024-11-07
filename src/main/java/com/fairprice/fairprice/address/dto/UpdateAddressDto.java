@@ -1,4 +1,4 @@
-package com.fairprice.fairprice.user.dto;
+package com.fairprice.fairprice.address.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

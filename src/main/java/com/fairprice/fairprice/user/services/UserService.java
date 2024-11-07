@@ -1,13 +1,13 @@
 package com.fairprice.fairprice.user.services;
 
- import com.fairprice.fairprice.user.dto.UpdateAddressDto;
- import com.fairprice.fairprice.user.dto.UpdateCardDetailsDto;
+ import com.fairprice.fairprice.address.dto.UpdateAddressDto;
+ import com.fairprice.fairprice.card.dto.UpdateCardDetailsDto;
  import com.fairprice.fairprice.user.dto.UserProfileResDto;
- import com.fairprice.fairprice.user.model.Address;
+ import com.fairprice.fairprice.address.entity.Address;
  import com.fairprice.fairprice.card.entity.Card;
  import com.fairprice.fairprice.user.model.User;
- import com.fairprice.fairprice.user.repo.AddressRepository;
- import com.fairprice.fairprice.card.CardRepository;
+ import com.fairprice.fairprice.address.repo.AddressRepository;
+ import com.fairprice.fairprice.card.repo.CardRepository;
  import com.fairprice.fairprice.user.repo.UserRepository;
  import lombok.RequiredArgsConstructor;
  import org.modelmapper.ModelMapper;

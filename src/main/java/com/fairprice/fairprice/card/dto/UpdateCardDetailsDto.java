@@ -1,6 +1,5 @@
-package com.fairprice.fairprice.user.dto;
+package com.fairprice.fairprice.card.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;

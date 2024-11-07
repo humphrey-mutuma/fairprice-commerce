@@ -1,6 +1,7 @@
 package com.fairprice.fairprice.card;
 
 import com.fairprice.fairprice.card.entity.Card;
+import com.fairprice.fairprice.address.services.AddressService;
 import com.fairprice.fairprice.card.services.CardService;
 import com.fairprice.fairprice.reponse.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,14 @@ public class CardController {
     public ResponseEntity<ApiResponse<List<Card>>> findAllCards() {
         return ResponseEntity
                 .ok(new ApiResponse<>("success" ,cardService.findAllCards()));
+    }
+
+    @DeleteMapping("/{cardId}")
+    public ResponseEntity<ApiResponse<String>> deleteCard(
+            @PathVariable("cardId") Long cardId
+    ) {
+        return ResponseEntity
+                .ok(new ApiResponse<>("success" ,cardService.deleteCard(cardId)));
     }
 
 }

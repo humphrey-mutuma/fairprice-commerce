@@ -1,7 +1,10 @@
 package com.fairprice.fairprice.card.services;
 
+import com.fairprice.fairprice.address.entity.Address;
+import com.fairprice.fairprice.address.repo.AddressRepository;
+import com.fairprice.fairprice.address.services.IAddressService;
 import com.fairprice.fairprice.card.entity.Card;
-import com.fairprice.fairprice.card.CardRepository;
+import com.fairprice.fairprice.card.repo.CardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CardService implements ICardService {
 
-    private final CardRepository cardRepository;
+    private final CardRepository cardRepository ;
 
     @Override
     public List<Card> findAllCards() {
@@ -25,4 +28,5 @@ public class CardService implements ICardService {
         cardRepository.deleteById(cardId);
         return "Card deleted successfully";
     }
+
 }
