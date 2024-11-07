@@ -1,5 +1,6 @@
-package com.fairprice.fairprice.user.model;
+package com.fairprice.fairprice.card.entity;
 
+import com.fairprice.fairprice.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
