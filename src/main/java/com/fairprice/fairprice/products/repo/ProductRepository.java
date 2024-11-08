@@ -15,6 +15,6 @@ import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-    @Query("SELECT p FROM Products p WHERE LOWER(p.name) LIKE LOWER(:query) OR p.price = :query")
+    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(:query) OR p.price = :query")
     List<ProductDto> searchProducts(@Param("query") String query);
 }
