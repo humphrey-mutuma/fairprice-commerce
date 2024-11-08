@@ -8,6 +8,15 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.security.SecurityScheme.Type;
 import io.swagger.v3.oas.models.Components;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityScheme.Type;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 @Configuration
 public class OpenApiConfig {
 
@@ -15,6 +24,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("FairPrice APIs").version("1.0"))
+                .addSecurityItem(new SecurityRequirement().addList("bearer-key")) // Apply bearer-key scheme
                 .components(new Components()
                         .addSecuritySchemes("bearer-key", new SecurityScheme()
                                 .type(Type.HTTP)
