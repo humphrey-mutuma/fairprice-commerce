@@ -22,10 +22,8 @@ public class Reward {
     private Long id;
 
     private double  points;
-
     private double  amount;
 
-    //    dates
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

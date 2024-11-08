@@ -1,17 +1,19 @@
 package com.fairprice.fairprice.rewards.services;
 
-
-import com.fairprice.fairprice.products.dto.ProductDto;
+import com.fairprice.fairprice.rewards.dto.RewardDto;
 import com.fairprice.fairprice.rewards.model.Reward;
+
+import java.util.List;
 
 public interface IRewardService {
 
-    ProductDto findReward();
+    List<Reward> findRewards();
 
-    String createReward(Reward reward);
+    String createReward(RewardDto reward);
 
-    String updateReward(Long rewardId, Reward reward    );
+//    String updateReward(Long rewardId, RewardDto reward    );
 
      String deleteReward(Long rewardId );
 
 }
+

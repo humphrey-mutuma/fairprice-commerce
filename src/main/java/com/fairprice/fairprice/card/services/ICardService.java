@@ -1,7 +1,6 @@
 package com.fairprice.fairprice.card.services;
 
-
- import com.fairprice.fairprice.card.entity.Card;
+import com.fairprice.fairprice.card.entity.Card;
 
 import java.util.List;
 
