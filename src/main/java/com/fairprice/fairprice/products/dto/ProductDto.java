@@ -23,7 +23,7 @@ public class ProductDto {
     private double  price;
     private String  image;
     private String  weight;
-    private boolean  isHalal ;
+    private Boolean isHalal;
     private double  rating;
     private double  reviews;
     private LocalDateTime createdAt;
