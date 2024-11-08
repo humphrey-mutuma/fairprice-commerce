@@ -49,8 +49,11 @@ public class AuthService {
                throw new BadCredentialsException("Invalid Credentials, please check your username or password!");
            }
 
-           // Generate a new token
-           String token = jwtService.generateToken(user.getUsername());
+           // Generate a 24hrs new token
+//           add as an env variable.
+           long expirationTimeMillis = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+           String token = jwtService.generateToken(user.getUsername(), expirationTimeMillis);
 
            // Retrieve user details from the database
            User userFromDb = authRepository.findByUsername(user.getUsername());
