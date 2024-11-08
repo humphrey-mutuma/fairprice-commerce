@@ -2,6 +2,7 @@ package com.fairprice.fairprice.user.services;
 
  import com.fairprice.fairprice.address.dto.UpdateAddressDto;
  import com.fairprice.fairprice.card.dto.UpdateCardDetailsDto;
+ import com.fairprice.fairprice.exceptions.UnauthorizedException;
  import com.fairprice.fairprice.user.dto.UserProfileResDto;
  import com.fairprice.fairprice.address.entity.Address;
  import com.fairprice.fairprice.card.entity.Card;
@@ -11,6 +12,7 @@ package com.fairprice.fairprice.user.services;
  import com.fairprice.fairprice.user.repo.UserRepository;
  import lombok.RequiredArgsConstructor;
  import org.modelmapper.ModelMapper;
+ import org.springframework.security.core.userdetails.UserDetails;
  import org.springframework.stereotype.Service;
 
  import java.lang.module.ResolutionException;
@@ -25,17 +27,20 @@ public class UserService implements IUserService {
     private final CardRepository cardRepository;
 
     @Override
-    public UserProfileResDto findUserProfile(UUID userId) {
+    public UserProfileResDto findUserProfile(UUID userId, UserDetails userDetails) {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResolutionException("User not found!"));
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new ResolutionException("User not found!"));
 
+        if (!user.getId().equals(userId)){
+            throw new UnauthorizedException("Not Authorized!");
+        }
         return modelMapper.map(user, UserProfileResDto.class);
     }
 
     @Override
-    public String updateUserAddress(UUID userId, UpdateAddressDto updateAddress) {
+    public String updateUserAddress( UpdateAddressDto updateAddress, UserDetails userDetails) {
 
-        User user = userRepository.findById(userId).orElseThrow(()-> new ResolutionException("User Not found!"));
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new ResolutionException("User Not found!"));
 
 //        update address
         Address newAddress = new Address();
@@ -56,9 +61,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String updateUserCards(UUID userId, UpdateCardDetailsDto  updateCardDetailsDto) {
+    public String updateUserCards( UpdateCardDetailsDto  updateCardDetailsDto, UserDetails userDetails) {
 
-        User user = userRepository.findById(userId).orElseThrow(()-> new ResolutionException("User Not found!"));
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new ResolutionException("User Not found!"));
 
 //        update card
         Card newCard = new Card();
@@ -69,16 +74,20 @@ public class UserService implements IUserService {
 
         newCard.setUser(user);
 
-
         cardRepository.save(newCard);
 
         return "Card details updated successfully";
     }
 
     @Override
-    public String deleteUser(UUID userId) {
-        userRepository.findById(userId)
-                .orElseThrow(()-> new ResolutionException("User Not found!"));
+    public String deleteUser(UUID userId, UserDetails userDetails) {
+       User user =  userRepository.findByUsername(userDetails.getUsername())
+                                    .orElseThrow(()-> new ResolutionException("User Not found!"));
+
+        if (!user.getId().equals(userId)) {
+            throw new UnauthorizedException("Not authorized!");
+        }
+
         userRepository.deleteById(userId);
         return "User deleted successfully";
     }

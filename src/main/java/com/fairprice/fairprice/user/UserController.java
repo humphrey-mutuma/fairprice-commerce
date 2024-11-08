@@ -7,6 +7,8 @@ import com.fairprice.fairprice.user.dto.UserProfileResDto;
 import com.fairprice.fairprice.user.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -20,38 +22,43 @@ public class UserController {
 
 //     fetch user profile ***********************
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<ApiResponse<UserProfileResDto>> findUserProfile(@PathVariable UUID userId ) {
+    public ResponseEntity<ApiResponse<UserProfileResDto>> findUserProfile(
+            @PathVariable UUID userId,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
         return ResponseEntity
-                .ok(new ApiResponse<>("success" ,userService.findUserProfile(userId)));
+                .ok(new ApiResponse<>("success" ,userService.findUserProfile(userId, userDetails)));
     }
 
     // update user address **************************
-    @PatchMapping("/address/{userId}")
+    @PatchMapping("/address")
     public ResponseEntity<ApiResponse<String>> updateUserProfile(
-            @PathVariable("userId") UUID userId,
-            @RequestBody() UpdateAddressDto UpdateAddressDto
+             @RequestBody() UpdateAddressDto UpdateAddressDto,
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
         return ResponseEntity
-                .ok(new ApiResponse<>(userService.updateUserAddress(userId, UpdateAddressDto), null));
+                .ok(new ApiResponse<>(userService.updateUserAddress(UpdateAddressDto, userDetails), null));
     }
 
     // update user card **************************
-    @PatchMapping("/cards/{userId}")
+    @PatchMapping("/cards")
     public ResponseEntity<ApiResponse<String>> updateUserCards(
-            @PathVariable("userId") UUID userId,
-            @RequestBody() UpdateCardDetailsDto updateCardDetailsDto
+             @RequestBody() UpdateCardDetailsDto updateCardDetailsDto,
+            @AuthenticationPrincipal UserDetails userDetails
     ) {
         return ResponseEntity
-                .ok(new ApiResponse<>(userService.updateUserCards(userId, updateCardDetailsDto), null));
+                .ok(new ApiResponse<>(userService.updateUserCards(updateCardDetailsDto, userDetails), null));
     }
 
-    // delete user properties *******************
+    // delete user *******************
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponse<String>> deleteUser(
-            @PathVariable("userId") UUID userId
-             )  {
+            @PathVariable("userId") UUID userId,
+            @AuthenticationPrincipal UserDetails userDetails
+
+    )  {
         return ResponseEntity
-                .ok(new ApiResponse<>( userService.deleteUser(userId), null));
+                .ok(new ApiResponse<>( userService.deleteUser(userId, userDetails), null));
     }
 
 }
