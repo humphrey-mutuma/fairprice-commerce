@@ -24,7 +24,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/{addressId}")
-    public ResponseEntity<ApiResponse<String>> deleteCard(
+    public ResponseEntity<ApiResponse<String>> deleteAddress(
             @PathVariable("addressId") Long addressId
     ) {
         return ResponseEntity
