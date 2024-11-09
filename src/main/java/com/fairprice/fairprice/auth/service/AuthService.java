@@ -39,13 +39,13 @@ public class AuthService {
    //    login user
    public LoginResponseDto login(LoginDto loginDto) {
 //        check is user is registered
-       User user = authRepository.findByUsername(loginDto.getUsername());
-//       if user is not registered we register and login
-       if (user == null){
+       User user_from_db = authRepository.findByUsername(loginDto.getUsername());
+//       if user_from_db is not registered we register and login
+       if (user_from_db == null){
            // Create a new User entity and set the properties from RegisterDto
            User newUser = new User();
-           newUser.setUsername(user.getUsername());
-           newUser.setPassword(encoder.encode(user.getPassword()));
+           newUser.setUsername(loginDto.getUsername());
+           newUser.setPassword(encoder.encode(loginDto.getPassword()));
            // newUser.setRoles(user.getRoles()); // Assuming roles are set in RegisterDto
 
            // Save the new user to the database
@@ -56,7 +56,7 @@ public class AuthService {
 
            // Attempt authentication
            Authentication authentication = authManager.authenticate(
-                   new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+                   new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
            );
 
            // Check if authentication was successful
@@ -68,13 +68,13 @@ public class AuthService {
 //           add as an env variable.
            long expirationTimeMillis = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
-           String token = jwtService.generateToken(user.getUsername(), expirationTimeMillis);
+           String token = jwtService.generateToken(loginDto.getUsername(), expirationTimeMillis);
 
            // Retrieve user details from the database
-           User userFromDb = authRepository.findByUsername(user.getUsername());
+           User userFromDb = authRepository.findByUsername(loginDto.getUsername());
 
            // Return successful response with token and user details
-           return new LoginResponseDto(token, userFromDb.getId(), user.getUsername(), userFromDb.getRoles());
+           return new LoginResponseDto(token, userFromDb.getId(), loginDto.getUsername(), userFromDb.getRoles());
 
        } catch (BadCredentialsException e) {
            // Return a response indicating invalid credentials
