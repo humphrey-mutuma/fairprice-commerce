@@ -22,13 +22,13 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse<String>> register(@RequestBody RegisterDto registerDto) throws BadRequestException {
-             String message = authService.register(registerDto);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(new ApiResponse<>(message, null));
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<ApiResponse<String>> register(@RequestBody RegisterDto registerDto) throws BadRequestException {
+//             String message = authService.register(registerDto);
+//            return ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(new ApiResponse<>(message, null));
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponseDto>> login(@RequestBody LoginDto loginDto) {

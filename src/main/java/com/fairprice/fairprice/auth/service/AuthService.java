@@ -37,8 +37,23 @@ public class AuthService {
     }
 
    //    login user
-   public LoginResponseDto login(LoginDto user) {
+   public LoginResponseDto login(LoginDto loginDto) {
+//        check is user is registered
+       User user = authRepository.findByUsername(loginDto.getUsername());
+//       if user is not registered we register and login
+       if (user == null){
+           // Create a new User entity and set the properties from RegisterDto
+           User newUser = new User();
+           newUser.setUsername(user.getUsername());
+           newUser.setPassword(encoder.encode(user.getPassword()));
+           // newUser.setRoles(user.getRoles()); // Assuming roles are set in RegisterDto
+
+           // Save the new user to the database
+           authRepository.save(newUser);
+       }
+
        try {
+
            // Attempt authentication
            Authentication authentication = authManager.authenticate(
                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
