@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -27,12 +28,12 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-                .cors(AbstractHttpConfigurer::disable) // Disable CORS entirely
-                .csrf(AbstractHttpConfigurer::disable)
+                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/index.html").permitAll() // Allow Swagger to be accessible
                 .requestMatchers("/api/login", "/api/register").permitAll()
@@ -40,10 +41,10 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors(AbstractHttpConfigurer::disable)
                 .build();
-
-
     }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
