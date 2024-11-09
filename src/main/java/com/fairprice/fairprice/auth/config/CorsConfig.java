@@ -10,12 +10,18 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")  // Apply to all routes
-                .allowedOriginPatterns("http://localhost:3000","https://fairpriceshop.vercel.app", "https://fairprice.up.railway.app", "https://*.ngrok-free.app")  // Use patterns to allow subdomains or specific domains
+        registry.addMapping("/**")
+                .allowedOrigins("*")  // Allow requests from any origin
+                .allowedMethods("*")  // Allow any HTTP method (GET, POST, etc.)
+                .allowedHeaders("*")  // Allow any header
+                .allowCredentials(true); // Allow credentials if needed (e.g., cookies, authorization headers)
 
-                .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
-                .allowedHeaders("Authorization", "Content-Type") // Allow specific headers
-                .allowCredentials(true); // Allow cookies or credentials if needed
+//        registry.addMapping("/**")  // Apply to all routes
+//                .allowedOriginPatterns("http://localhost:3000","https://fairpriceshop.vercel.app", "https://fairprice.up.railway.app", "https://*.ngrok-free.app")  // Use patterns to allow subdomains or specific domains
+//
+//                .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow specific HTTP methods
+//                .allowedHeaders("Authorization", "Content-Type") // Allow specific headers
+//                .allowCredentials(true); // Allow cookies or credentials if needed
 
      }
 }
