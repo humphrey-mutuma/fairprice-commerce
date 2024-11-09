@@ -2,8 +2,6 @@ package com.fairprice.fairprice.address;
 
 import com.fairprice.fairprice.address.entity.Address;
 import com.fairprice.fairprice.address.services.AddressService;
-import com.fairprice.fairprice.card.entity.Card;
-import com.fairprice.fairprice.card.services.CardService;
 import com.fairprice.fairprice.reponse.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
