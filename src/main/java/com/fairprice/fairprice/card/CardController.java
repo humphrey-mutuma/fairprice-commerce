@@ -14,11 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("${api.prefix}/cards")
-
+@CrossOrigin
 public class CardController {
     private final CardService cardService;
 
-     @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<ApiResponse<List<Card>>> findAllCards() {
         return ResponseEntity
                 .ok(new ApiResponse<>("success" ,cardService.findAllCards()));

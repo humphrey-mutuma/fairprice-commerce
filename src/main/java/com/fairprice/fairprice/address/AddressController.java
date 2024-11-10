@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("${api.prefix}/address")
-
+@CrossOrigin
 public class AddressController {
     private final AddressService addressService;
 

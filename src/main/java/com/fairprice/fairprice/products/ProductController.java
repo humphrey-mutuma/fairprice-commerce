@@ -16,11 +16,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("${api.prefix}/products")
+@CrossOrigin
 public class ProductController {
     private final ProductService productService;
 
     //     fetch all products ***********************
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<ApiResponse<List<ProductDto>>> findProducts(
             @RequestParam int page,
             @RequestParam int pageSize
@@ -50,7 +51,7 @@ public class ProductController {
     }
 
     // update product **************************
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<ApiResponse<String>> createProduct(
             @RequestBody() ProductDto productDto,
             @AuthenticationPrincipal UserDetails userDetails

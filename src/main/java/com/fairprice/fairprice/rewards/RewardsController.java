@@ -15,18 +15,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("${api.prefix}/rewards")
+@CrossOrigin
 public class RewardsController {
     private final RewardService rewardsService;
 
     //    fetch rewards***********************
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<ApiResponse<List<Reward>>> findRewards( ) {
         return ResponseEntity
                 .ok(new ApiResponse<>("success" ,rewardsService.findRewards()));
     }
 
     // create reward **************************
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<ApiResponse<String>> createReward(
              @RequestBody() RewardDto reward
     ) {
