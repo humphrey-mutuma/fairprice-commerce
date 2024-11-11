@@ -40,35 +40,36 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Enable CORS with custom config
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(request -> request
-//                       .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui/index.html").permitAll() // Allow Swagger to be accessible
-                        .requestMatchers("/api/login").permitAll()
-                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                         .requestMatchers("/api/v1/**").authenticated()
+                .authorizeHttpRequests(request ->
+                        request
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Allow Swagger access
+                                .requestMatchers("/api/login", "/api/register").permitAll() // Public login and register endpoints
+//                                .requestMatchers("/**").hasRole("SUPER_ADMIN") // SUPER_ADMIN has unrestricted access to all routes
+                                .anyRequest().authenticated() // All other requests require authentication
                 )
-                .authenticationProvider(authenticationProvider())
-                .headers(header -> header.addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*")))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                 .build();
+                .build();
+
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+     @Bean
+     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://fairprice.vercel.app"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setExposedHeaders(List.of("*"));
+        configuration.addAllowedOrigin("http://localhost:3000"); // React in dev
+        configuration.addAllowedOrigin("https://fairpriceshop.vercel.app"); // Production domain
+        configuration.addAllowedOrigin("http://localhost:8080"); // Swagger UI
+        configuration.addAllowedHeader("*"); // Allow all headers
+        configuration.addAllowedMethod("*"); // Allow all methods (GET, POST, etc.)
+        configuration.setAllowCredentials(true); // Allow cookies and Authorization headers
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
+    } 
 
 
     @Bean
