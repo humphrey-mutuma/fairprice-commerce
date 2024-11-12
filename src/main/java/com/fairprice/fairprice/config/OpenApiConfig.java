@@ -16,7 +16,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("FairPrice APIs").version("1.0"))
-                .addServersItem(new Server().url("https://fairprice.up.railway.app")) // Replace with your HTTPS URL
+                .addServersItem(new Server().url("https://fairprice-commerce.onrender.com")) // Replace with your HTTPS URL
                 .addSecurityItem(new SecurityRequirement().addList("bearer-key"))
                 .components(new Components()
                         .addSecuritySchemes("bearer-key", new SecurityScheme()
