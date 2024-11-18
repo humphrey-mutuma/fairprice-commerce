@@ -1,6 +1,6 @@
 package com.fairprice.fairprice.card.repo;
 
-import com.fairprice.fairprice.card.entity.Card;
+import com.fairprice.fairprice.card.model.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

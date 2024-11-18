@@ -1,7 +1,6 @@
 package com.fairprice.fairprice.card;
 
-import com.fairprice.fairprice.card.entity.Card;
-import com.fairprice.fairprice.address.services.AddressService;
+import com.fairprice.fairprice.card.model.Card;
 import com.fairprice.fairprice.card.services.CardService;
 import com.fairprice.fairprice.reponse.ApiResponse;
 import lombok.RequiredArgsConstructor;

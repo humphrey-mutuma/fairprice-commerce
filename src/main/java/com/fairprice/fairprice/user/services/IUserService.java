@@ -14,8 +14,13 @@ public interface IUserService {
     UserProfileResDto findUserProfile(UUID userId, UserDetails userDetails);
 
     // update user address **************************
+    String updateUserPoints(
+            Double points,
+            UserDetails userDetails
+    );
+    // update user address **************************
     String updateUserAddress(
-             UpdateAddressDto updateAddressDto,
+            UpdateAddressDto updateAddressDto,
             UserDetails userDetails
     );
 

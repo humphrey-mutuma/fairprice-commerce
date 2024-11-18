@@ -21,8 +21,8 @@ public class Reward {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double  points;
-    private double  amount;
+    private Double  points;
+    private Double  amount;
 
     @CreationTimestamp
     @Column(updatable = false)

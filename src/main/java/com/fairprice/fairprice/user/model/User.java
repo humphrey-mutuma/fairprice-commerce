@@ -1,7 +1,7 @@
 package com.fairprice.fairprice.user.model;
 
 import com.fairprice.fairprice.address.entity.Address;
-import com.fairprice.fairprice.card.entity.Card;
+import com.fairprice.fairprice.card.model.Card;
 import com.fairprice.fairprice.enums.UserRoles;
 import com.fairprice.fairprice.products.model.Product;
 import jakarta.persistence.*;
@@ -31,6 +31,8 @@ public class User {
 
     @Column(nullable = false)
     private String  password;
+
+    private Double  points;
 
     @Column(nullable = false)
     private Enum<UserRoles> roles = UserRoles.USER;  // Default role set to USER

@@ -5,7 +5,7 @@ package com.fairprice.fairprice.user.services;
  import com.fairprice.fairprice.exceptions.UnauthorizedException;
  import com.fairprice.fairprice.user.dto.UserProfileResDto;
  import com.fairprice.fairprice.address.entity.Address;
- import com.fairprice.fairprice.card.entity.Card;
+ import com.fairprice.fairprice.card.model.Card;
  import com.fairprice.fairprice.user.model.User;
  import com.fairprice.fairprice.address.repo.AddressRepository;
  import com.fairprice.fairprice.card.repo.CardRepository;
@@ -35,6 +35,19 @@ public class UserService implements IUserService {
             throw new UnauthorizedException("Not Authorized!");
         }
         return modelMapper.map(user, UserProfileResDto.class);
+    }
+
+    @Override
+    public String updateUserPoints(Double points, UserDetails userDetails) {
+
+        User existing_user = userRepository.findByUsername(userDetails.getUsername())
+                            .orElseThrow(()-> new ResolutionException("User Not found!"));
+//
+        existing_user.setPoints(points);
+
+        userRepository.save(existing_user);
+
+        return "User points updated successfully";
     }
 
     @Override

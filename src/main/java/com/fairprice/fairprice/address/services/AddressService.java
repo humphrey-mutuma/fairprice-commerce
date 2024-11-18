@@ -2,8 +2,6 @@ package com.fairprice.fairprice.address.services;
 
 import com.fairprice.fairprice.address.entity.Address;
 import com.fairprice.fairprice.address.repo.AddressRepository;
-import com.fairprice.fairprice.card.entity.Card;
-import com.fairprice.fairprice.card.repo.CardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

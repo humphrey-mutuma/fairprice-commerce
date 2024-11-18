@@ -3,6 +3,7 @@ package com.fairprice.fairprice.user;
 import com.fairprice.fairprice.reponse.ApiResponse;
 import com.fairprice.fairprice.address.dto.UpdateAddressDto;
 import com.fairprice.fairprice.card.dto.UpdateCardDetailsDto;
+import com.fairprice.fairprice.user.dto.UserPointsDto;
 import com.fairprice.fairprice.user.dto.UserProfileResDto;
 import com.fairprice.fairprice.user.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,16 @@ public class UserController {
     ) {
         return ResponseEntity
                 .ok(new ApiResponse<>("success" ,userService.findUserProfile(userId, userDetails)));
+    }
+
+    // update user address **************************
+    @PatchMapping("/points")
+    public ResponseEntity<ApiResponse<String>> updateUserProfile(
+            @RequestBody() UserPointsDto userPointsDto,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        return ResponseEntity
+                .ok(new ApiResponse<>(userService.updateUserPoints(userPointsDto.getPoints(), userDetails), null));
     }
 
     // update user address **************************

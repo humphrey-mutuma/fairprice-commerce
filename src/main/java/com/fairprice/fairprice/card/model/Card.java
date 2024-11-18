@@ -1,4 +1,4 @@
-package com.fairprice.fairprice.card.entity;
+package com.fairprice.fairprice.card.model;
 
 import com.fairprice.fairprice.user.model.User;
 import jakarta.persistence.*;
