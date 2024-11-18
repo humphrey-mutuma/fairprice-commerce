@@ -1,36 +1,26 @@
 package com.fairprice.fairprice.auth.controller;
 
-import com.fairprice.fairprice.auth.dto.LoginDto;
-import com.fairprice.fairprice.auth.dto.LoginResponseDto;
-import com.fairprice.fairprice.auth.dto.RegisterDto;
+import com.fairprice.fairprice.auth.dto.AuthDto;
+import com.fairprice.fairprice.auth.dto.AuthResponseDto;
 import com.fairprice.fairprice.auth.service.AuthService;
 import com.fairprice.fairprice.reponse.ApiResponse;
-import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 @CrossOrigin(origins = {"http://localhost:3000", "https://fairpriceshop.vercel.app"})
 public class AuthController {
 
     @Autowired
     private AuthService authService;
 
-//    @PostMapping("/register")
-//    public ResponseEntity<ApiResponse<String>> register(@RequestBody RegisterDto registerDto) throws BadRequestException {
-//             String message = authService.register(registerDto);
-//            return ResponseEntity
-//                    .status(HttpStatus.CREATED)
-//                    .body(new ApiResponse<>(message, null));
-//    }
 
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponseDto>> login(@RequestBody LoginDto loginDto) {
-             LoginResponseDto response = authService.login(loginDto);
+    @PostMapping("/auth")
+    public ResponseEntity<ApiResponse<AuthResponseDto>> authenticate(@RequestBody AuthDto authDto) {
+             AuthResponseDto response = authService.authenticate(authDto);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(new ApiResponse<>("Successfully logged in", response));

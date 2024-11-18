@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterDto {
+public class AuthDto {
     @NotNull
-    @NotBlank
+    @NotBlank(message = "Username is required!")
     private String username;
 
     @NotNull
-    @NotBlank
-     private String password;
+    @NotBlank(message = "Password is required!")
+    private String password;
 }

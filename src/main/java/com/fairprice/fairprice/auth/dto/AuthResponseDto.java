@@ -10,11 +10,12 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponseDto {
+public class AuthResponseDto {
 
     private String token;
-    private UUID id;
+    private Long id;
     private String username;
+    private Double points;
     private Enum<UserRoles> roles;
  //    add other here
 }

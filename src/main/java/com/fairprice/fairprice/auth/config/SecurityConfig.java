@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Allow Swagger access
-                                .requestMatchers("/api/login", "/api/register").permitAll() // Public login and register endpoints
+                                .requestMatchers("/api/auth/auth").permitAll() // Public login and register endpoints
 //                                .requestMatchers("/**").hasRole("SUPER_ADMIN") // SUPER_ADMIN has unrestricted access to all routes
                                 .anyRequest().authenticated() // All other requests require authentication
                 )

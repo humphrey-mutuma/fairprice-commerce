@@ -14,6 +14,7 @@ package com.fairprice.fairprice.user.services;
  import org.modelmapper.ModelMapper;
  import org.springframework.security.core.userdetails.UserDetails;
  import org.springframework.stereotype.Service;
+ import org.springframework.transaction.annotation.Transactional;
 
  import java.lang.module.ResolutionException;
  import java.util.UUID;
@@ -38,6 +39,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public String updateUserPoints(Double points, UserDetails userDetails) {
 
         User existing_user = userRepository.findByUsername(userDetails.getUsername())
@@ -51,18 +53,19 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public String updateUserAddress( UpdateAddressDto updateAddress, UserDetails userDetails) {
 
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new ResolutionException("User Not found!"));
 
-//        update address
+//        create new address
         Address newAddress = new Address();
         newAddress.setFirstname(updateAddress.getFirstname());
         newAddress.setLastname(updateAddress.getLastname());
         newAddress.setAddress1(updateAddress.getAddress1());
         newAddress.setAddress2(updateAddress.getAddress2());
         newAddress.setCountry(updateAddress.getCountry());
-        newAddress.setState(updateAddress.getState());
+        newAddress.setCity(updateAddress.getCity());
         newAddress.setState(updateAddress.getState());
         newAddress.setZipcode(updateAddress.getZipcode());
         newAddress.setPhoneNumber(updateAddress.getPhoneNumber());
@@ -74,6 +77,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public String updateUserCards( UpdateCardDetailsDto  updateCardDetailsDto, UserDetails userDetails) {
 
         User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new ResolutionException("User Not found!"));
@@ -93,6 +97,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public String deleteUser(UUID userId, UserDetails userDetails) {
        User user =  userRepository.findByUsername(userDetails.getUsername())
                                     .orElseThrow(()-> new ResolutionException("User Not found!"));

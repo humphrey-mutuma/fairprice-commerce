@@ -23,8 +23,8 @@ import java.util.*;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(unique = true, nullable = false, length = 50)
     private String username;
@@ -32,7 +32,7 @@ public class User {
     @Column(nullable = false)
     private String  password;
 
-    private Double  points;
+    private Double  points = 1000.00;
 
     @Column(nullable = false)
     private Enum<UserRoles> roles = UserRoles.USER;  // Default role set to USER
