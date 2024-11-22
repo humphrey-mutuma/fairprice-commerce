@@ -1,5 +1,6 @@
 package com.fairprice.fairprice.address;
 
+import com.fairprice.fairprice.address.dto.FetchAddressesDto;
 import com.fairprice.fairprice.address.entity.Address;
 import com.fairprice.fairprice.address.services.AddressService;
 import com.fairprice.fairprice.reponse.ApiResponse;
@@ -17,8 +18,8 @@ import java.util.List;
 public class AddressController {
     private final AddressService addressService;
 
-     @GetMapping("/")
-    public ResponseEntity<ApiResponse<List<Address>>> findAllAddresses() {
+     @GetMapping()
+    public ResponseEntity<ApiResponse<List<FetchAddressesDto>>> findAllAddresses() {
         return ResponseEntity
                 .ok(new ApiResponse<>("success" ,addressService.findAllAddresses()));
     }

@@ -1,5 +1,6 @@
 package com.fairprice.fairprice.products;
 
+import com.fairprice.fairprice.products.dto.AllProductsDto;
 import com.fairprice.fairprice.products.dto.ProductDto;
 import com.fairprice.fairprice.products.services.ProductService;
 import com.fairprice.fairprice.reponse.ApiResponse;
@@ -21,13 +22,13 @@ public class ProductController {
     private final ProductService productService;
 
     //     fetch all products ***********************
-    @GetMapping("")
-    public ResponseEntity<ApiResponse<List<ProductDto>>> findProducts(
-            @RequestParam int page,
-            @RequestParam int pageSize
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<AllProductsDto>>> findAllProducts(
+//            @RequestParam int page,
+//            @RequestParam int pageSize
     ) {
         return ResponseEntity
-                .ok(new ApiResponse<>("success" ,productService.findProducts(page, pageSize)));
+                .ok(new ApiResponse<>("success" ,productService.findAllProducts()));
     }
 
     //     fetch product ***********************

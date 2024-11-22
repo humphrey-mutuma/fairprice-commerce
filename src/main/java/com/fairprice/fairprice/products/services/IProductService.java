@@ -1,6 +1,7 @@
 package com.fairprice.fairprice.products.services;
 
 
+import com.fairprice.fairprice.products.dto.AllProductsDto;
 import com.fairprice.fairprice.products.dto.ProductDto;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,10 +12,7 @@ public interface IProductService {
 
     ProductDto findProductById(UUID productId );
 
-    List<ProductDto>  findProducts(
-            int  page,
-            int  pageSize
-    );
+    List<AllProductsDto>  findAllProducts(    );
 
      List<ProductDto> searchProducts(
             String query,

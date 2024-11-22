@@ -3,6 +3,7 @@ package com.fairprice.fairprice.user.services;
  import com.fairprice.fairprice.address.dto.UpdateAddressDto;
  import com.fairprice.fairprice.card.dto.UpdateCardDetailsDto;
  import com.fairprice.fairprice.exceptions.UnauthorizedException;
+ import com.fairprice.fairprice.user.dto.AllUsersDto;
  import com.fairprice.fairprice.user.dto.UserProfileResDto;
  import com.fairprice.fairprice.address.entity.Address;
  import com.fairprice.fairprice.card.model.Card;
@@ -10,13 +11,19 @@ package com.fairprice.fairprice.user.services;
  import com.fairprice.fairprice.address.repo.AddressRepository;
  import com.fairprice.fairprice.card.repo.CardRepository;
  import com.fairprice.fairprice.user.repo.UserRepository;
+ import jakarta.persistence.*;
  import lombok.RequiredArgsConstructor;
+ import org.hibernate.annotations.CreationTimestamp;
+ import org.hibernate.annotations.UpdateTimestamp;
  import org.modelmapper.ModelMapper;
  import org.springframework.security.core.userdetails.UserDetails;
+ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  import org.springframework.stereotype.Service;
  import org.springframework.transaction.annotation.Transactional;
 
  import java.lang.module.ResolutionException;
+ import java.time.LocalDateTime;
+ import java.util.List;
  import java.util.UUID;
 
 @Service
@@ -28,14 +35,17 @@ public class UserService implements IUserService {
     private final CardRepository cardRepository;
 
     @Override
-    public UserProfileResDto findUserProfile(UUID userId, UserDetails userDetails) {
+    public UserProfileResDto findUserProfile(UserDetails userDetails) {
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new ResolutionException("User not found!"));
+        User user = userRepository.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new ResolutionException("User not found!"));
 
-        if (!user.getId().equals(userId)){
-            throw new UnauthorizedException("Not Authorized!");
-        }
         return modelMapper.map(user, UserProfileResDto.class);
+    }
+
+    @Override
+    public List<AllUsersDto> findAllUsersDto() {
+        return userRepository.findAllUsersDto();
     }
 
     @Override
@@ -56,7 +66,7 @@ public class UserService implements IUserService {
     @Transactional
     public String updateUserAddress( UpdateAddressDto updateAddress, UserDetails userDetails) {
 
-        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new ResolutionException("User Not found!"));
+        User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow(()-> new UsernameNotFoundException("User Not found!"));
 
 //        create new address
         Address newAddress = new Address();
@@ -65,10 +75,11 @@ public class UserService implements IUserService {
         newAddress.setAddress1(updateAddress.getAddress1());
         newAddress.setAddress2(updateAddress.getAddress2());
         newAddress.setCountry(updateAddress.getCountry());
-        newAddress.setCity(updateAddress.getCity());
         newAddress.setState(updateAddress.getState());
+        newAddress.setCity(updateAddress.getCity());
         newAddress.setZipcode(updateAddress.getZipcode());
         newAddress.setPhoneNumber(updateAddress.getPhoneNumber());
+
         newAddress.setUser(user);
 
         addressRepository.save(newAddress);

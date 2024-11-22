@@ -3,6 +3,7 @@ package com.fairprice.fairprice.user;
 import com.fairprice.fairprice.reponse.ApiResponse;
 import com.fairprice.fairprice.address.dto.UpdateAddressDto;
 import com.fairprice.fairprice.card.dto.UpdateCardDetailsDto;
+import com.fairprice.fairprice.user.dto.AllUsersDto;
 import com.fairprice.fairprice.user.dto.UserPointsDto;
 import com.fairprice.fairprice.user.dto.UserProfileResDto;
 import com.fairprice.fairprice.user.services.UserService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -23,13 +25,27 @@ public class UserController {
     private final UserService userService;
 
 //     fetch user profile ***********************
-    @GetMapping("/profile/{userId}")
+    @GetMapping("/profile")
     public ResponseEntity<ApiResponse<UserProfileResDto>> findUserProfile(
-            @PathVariable UUID userId,
-            @AuthenticationPrincipal UserDetails userDetails
+             @AuthenticationPrincipal UserDetails userDetails
     ) {
         return ResponseEntity
-                .ok(new ApiResponse<>("success" ,userService.findUserProfile(userId, userDetails)));
+                .ok(new ApiResponse<>("success" ,userService.findUserProfile(userDetails)));
+    }
+
+    //     fetch all users ***********************
+
+    /**
+     * FOD admin only
+     * @param
+     * @return
+     */
+    @GetMapping()
+    public ResponseEntity<ApiResponse<List<AllUsersDto>>> findAllUsers(
+//             @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        return ResponseEntity
+                .ok(new ApiResponse<>("success" ,userService.findAllUsersDto( )));
     }
 
     // update user address **************************

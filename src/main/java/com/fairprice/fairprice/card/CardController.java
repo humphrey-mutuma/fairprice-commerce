@@ -1,5 +1,6 @@
 package com.fairprice.fairprice.card;
 
+import com.fairprice.fairprice.card.dto.GetCardsDto;
 import com.fairprice.fairprice.card.model.Card;
 import com.fairprice.fairprice.card.services.CardService;
 import com.fairprice.fairprice.reponse.ApiResponse;
@@ -18,7 +19,7 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping("")
-    public ResponseEntity<ApiResponse<List<Card>>> findAllCards() {
+    public ResponseEntity<ApiResponse<List<GetCardsDto>>> findAllCards() {
         return ResponseEntity
                 .ok(new ApiResponse<>("success" ,cardService.findAllCards()));
     }

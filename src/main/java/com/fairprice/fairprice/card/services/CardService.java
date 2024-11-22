@@ -1,5 +1,6 @@
 package com.fairprice.fairprice.card.services;
 
+import com.fairprice.fairprice.card.dto.GetCardsDto;
 import com.fairprice.fairprice.card.model.Card;
 import com.fairprice.fairprice.card.repo.CardRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class CardService implements ICardService {
     private final CardRepository cardRepository ;
 
     @Override
-    public List<Card> findAllCards() {
-        return cardRepository.findAll();
+    public List<GetCardsDto> findAllCards() {
+        return cardRepository.findAllCards();
     }
 
     @Override

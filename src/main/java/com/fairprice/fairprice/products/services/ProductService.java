@@ -2,6 +2,7 @@ package com.fairprice.fairprice.products.services;
 
 import com.fairprice.fairprice.exceptions.ResourceNotFoundException;
 import com.fairprice.fairprice.exceptions.UnauthorizedException;
+import com.fairprice.fairprice.products.dto.AllProductsDto;
 import com.fairprice.fairprice.products.dto.ProductDto;
 import com.fairprice.fairprice.products.model.Product;
 import com.fairprice.fairprice.products.repo.ProductRepository;
@@ -45,15 +46,10 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDto> findProducts(int page, int pageSize) {
+    public List<AllProductsDto> findAllProducts() {
 
-        Pageable pageable = PageRequest.of(page, pageSize);
+        return productRepository.findAllProducts();
 
-        Page<Product> productPage = productRepository.findAll(pageable);
-        return productPage
-                .stream()
-                .map(product -> modelMapper.map(product, ProductDto.class))
-                .collect(Collectors.toList());
     }
 
     @Override

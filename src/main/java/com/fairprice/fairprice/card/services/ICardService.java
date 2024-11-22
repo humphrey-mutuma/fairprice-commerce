@@ -1,12 +1,13 @@
 package com.fairprice.fairprice.card.services;
 
+import com.fairprice.fairprice.card.dto.GetCardsDto;
 import com.fairprice.fairprice.card.model.Card;
 
 import java.util.List;
 
 public interface ICardService {
 
-    List<Card> findAllCards( );
+    List<GetCardsDto> findAllCards( );
     String deleteCard( Long cardId );
 
 }

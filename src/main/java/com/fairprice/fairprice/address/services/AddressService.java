@@ -1,5 +1,6 @@
 package com.fairprice.fairprice.address.services;
 
+import com.fairprice.fairprice.address.dto.FetchAddressesDto;
 import com.fairprice.fairprice.address.entity.Address;
 import com.fairprice.fairprice.address.repo.AddressRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,9 @@ public class AddressService implements IAddressService {
     private final AddressRepository addressRepository;
 
     @Override
-    public List<Address> findAllAddresses() {
-        return addressRepository.findAll();
+    public List<FetchAddressesDto> findAllAddresses() {
+
+        return addressRepository.findAllAddresses();
     }
 
     @Override
