@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.fairprice</groupId>
 	<artifactId>fairprice</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>app</version>
 	<name>fairprice</name>
 	<description>Fairprice server</description>
 	<url/>
